@@ -8,31 +8,27 @@ import javax.swing.JButton;
 import br.com.clp.gui.CheckBox;
 
 public class ButtonStopListener implements ActionListener {
-	private JButton btnTest;
-	private JButton btnStop;
+	private JButton buttonTest;
+	private JButton buttonStop;
 	private CheckBox checkMonitor;
-	private CycloState state;
-	private HideStart hideStart;
-	
-	public ButtonStopListener(JButton stop, JButton test, CheckBox checkMonitor, CycloState state, HideStart hideStart) {
-		this.btnStop = stop;
-		this.btnTest = test;
-		this.checkMonitor = checkMonitor;
-		this.state = state;
-		this.hideStart = hideStart;
+	private CycloStartState cycloStartState;
+	private HoldStart holdStart;
+
+	public ButtonStopListener(JButton buttonStop, JButton buttonTest, CheckBox checkBoxHold, CycloStartState cycloStartState,
+			HoldStart holdStart) {
+		this.buttonStop = buttonStop;
+		this.buttonTest = buttonTest;
+		this.checkMonitor = checkBoxHold;
+		this.cycloStartState = cycloStartState;
+		this.holdStart = holdStart;
 	}
-	
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		try {
-			btnStop.setEnabled(false);
-			btnTest.setEnabled(true);
-			checkMonitor.setEnabled(true);
-			this.state.setState(false);
-			hideStart.getTimer().cancel();
-			
-		} catch (Exception stop) {
-			System.out.println(" Botão Stop zoado: " + stop.getMessage() + " - " + stop.getCause() + " - " + stop.getStackTrace());
-		}
+		buttonStop.setEnabled(false);
+		buttonTest.setEnabled(true);
+		checkMonitor.setEnabled(true);
+		this.cycloStartState.setState(false);
+		holdStart.getTimer().cancel();
 	}
 }

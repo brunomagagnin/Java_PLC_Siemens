@@ -19,14 +19,13 @@ public class PanelDB extends JPanel {
 	protected CheckBox checkBox1;
 	protected CheckBox checkBox2;
 	protected CheckBox checkBox3;
-	protected CheckboxGroup groupBox;
 	private Label label1;
 	private Label label2;
 	private Label label3;
 	
 	public PanelDB() {
 		this.setBounds(23, 10, 268, 213);
-		this.setBorder(BorderFactory.createTitledBorder(raisedbevel, "Endereço de Memória"));
+		this.setBorder(BorderFactory.createTitledBorder(raisedbevel, "Endereï¿½o de MemÃ³ria"));
 		this.setLayout(null);
 		
 		add(textFieldDB1 = new TextField(44, 51, 116, 32, null, true, false, null));

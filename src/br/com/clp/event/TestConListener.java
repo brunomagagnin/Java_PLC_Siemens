@@ -9,11 +9,11 @@ import javax.swing.JTextField;
 import br.com.clp.comunication.ConnectionS7;
 
 public class TestConListener implements ActionListener {
-	private JTextField textIP;
+	private JTextField fieldIP;
 	private JLabel lblStatus;
 
 	public TestConListener(JTextField field, JLabel label) {
-		this.textIP = field;
+		this.fieldIP = field;
 		this.lblStatus = label;
 	}
 
@@ -22,14 +22,14 @@ public class TestConListener implements ActionListener {
 		Thread thread = new Thread(new Runnable() {
 			@Override
 			public void run() {
-				ConnectionS7 conectar = new ConnectionS7(textIP.getText());
-				conectar.connect();
-				if (conectar.statusConnect()) {
-					lblStatus.setText("Conex„o OK!");
+				ConnectionS7 con = new ConnectionS7(fieldIP.getText());
+				con.connect();
+				if (con.isConnected()) {
+					lblStatus.setText("Conex√£o OK.");
 				} else {
-					lblStatus.setText("Sem conex„o!");
+					lblStatus.setText("Sem conex√£o.");
 				}
-				conectar.disconnect();
+				con.disconnect();
 			}
 		});
 		thread.run();

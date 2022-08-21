@@ -10,7 +10,7 @@ public class CheckBoxEvento implements ItemListener {
 	
 	private CheckBox checkBox;
 	private TextField txtField;
-	private boolean boxSelecionado;
+	private boolean isSelected;
 	
 	
 	public CheckBoxEvento(CheckBox checkBox, TextField textField) {
@@ -21,15 +21,15 @@ public class CheckBoxEvento implements ItemListener {
 	@Override
 	public void itemStateChanged(ItemEvent e) {
 		if(checkBox.isSelected()) {
-			this.boxSelecionado = true;
+			this.isSelected = true;
 			txtField.setEnabled(true);
 		} else {
-			this.boxSelecionado = false;
+			this.isSelected = false;
 			txtField.setEnabled(false);
 		}
 	}
 	
-	public boolean boxSelecionado() {
-		return this.boxSelecionado;
+	public boolean isSelected() {
+		return this.isSelected;
 	}
 }

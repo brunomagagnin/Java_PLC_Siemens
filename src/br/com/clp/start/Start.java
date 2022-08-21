@@ -4,9 +4,9 @@ import java.awt.EventQueue;
 
 import javax.swing.UIManager;
 
-import br.com.clp.gui.FramePrincipal;
+import br.com.clp.gui.FrameStart;
 
-public class Principal {
+public class Start {
 
 	public static void main(String[] args) {	
 		//LOOK AND FEEL
@@ -19,8 +19,8 @@ public class Principal {
 			public void run() {
 				try {
 					UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
-					FramePrincipal principal = new FramePrincipal();
-					principal.setVisible(true);
+					FrameStart start = new FrameStart();
+					start.setVisible(true);
 
 				} catch (Exception e) {
 					e.printStackTrace();
