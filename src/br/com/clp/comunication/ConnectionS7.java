@@ -7,7 +7,7 @@ public class ConnectionS7 {
 	protected String ip;
 	protected final int SLOT = 2;
 	protected final int RACK = 0;
-	protected boolean conectado = false;
+	protected boolean isConnected = false;
 	protected S7Client client = new S7Client();
 
 	public ConnectionS7(String ip) {
@@ -15,28 +15,24 @@ public class ConnectionS7 {
 	}
 
 	public void connect() {
-		try {
-			client.SetConnectionType(S7.S7_BASIC);
-			client.ConnectTo(ip, RACK, SLOT);
-			if (client.Connected) {
-				this.conectado = true;
-			} else {
-				this.conectado = false;
-			}
-		} catch (Exception e) {
-			System.out.println("Erro conectar: " + e.getMessage());
+		client.SetConnectionType(S7.S7_BASIC);
+		client.ConnectTo(ip, RACK, SLOT);
+		if (client.Connected) {
+			this.isConnected = true;
+		} else {
+			this.isConnected = false;
 		}
 	}
 
 	public void disconnect() {
 		if (client.Connected) {
 			client.Disconnect();
-			this.conectado = false;
+			this.isConnected = false;
 		}
 	}
 
-	public boolean statusConnect() {
-		return this.conectado;
+	public boolean isConnected() {
+		return this.isConnected;
 	}
 
 }
