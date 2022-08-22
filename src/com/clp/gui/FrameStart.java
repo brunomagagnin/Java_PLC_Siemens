@@ -65,7 +65,7 @@ public class FrameStart extends JFrame {
 		oneStart = new OneStart(panelConfig.textIP, panelConfig.checkBoxHold);
 		oneStart.fillLists(listCheckBox, listFieldDB, listFieldValues);
 
-		holdStart = new HoldStart(panelConfig.buttonStop, panelTest.buttonTeste, panelConfig.textIP, panelConfig.checkBoxHold, cycloStartState, this);
+		holdStart = new HoldStart(panelConfig.buttonStop, panelTest.buttonTeste, panelConfig.textIP, panelConfig.checkBoxHold, cycloStartState);
 		holdStart.fillLists(listCheckBox, listFieldDB, listFieldValues);
 
 		// *******  EVENTO BOT�ES DE START E STOP  ****************
