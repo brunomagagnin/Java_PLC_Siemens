@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import com.clp.comunication.DriverS7;
+import com.clp.exceptions.NoConnectionException;
 import com.clp.exceptions.VerifyException;
 import com.clp.gui.CheckBox;
 import com.clp.gui.TextField;
@@ -35,13 +36,14 @@ public class OneStart implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		try {
+		if (!checkBoxHold.isSelected()) {
 			try {
-				if (!checkBoxHold.isSelected()) {
-					verifyCheck();
-					Thread thread = new Thread(new Runnable() {
-						@Override
-						public void run() {
+				verifyCheck();
+				verifyString();
+				Thread thread = new Thread(new Runnable() {
+					@Override
+					public void run() {
+						try {
 							driver = new DriverS7(fieldIP.getText());
 							driver.connect();
 							if (driver.isConnected()) {
@@ -63,41 +65,39 @@ public class OneStart implements ActionListener {
 										}
 									}
 								}
-								driver.disconnect();
-							} else {
-								System.out.println("Sem conexão com CLP."); // Deve lançar exception
 							}
+							driver.disconnect();
+						} catch (NoConnectionException noCon) {
+							JOptionPane.showMessageDialog(new JFrame(), noCon.getMessage());
 						}
-					});
-					thread.start();
-				}
-			} catch (VerifyException v) {
-
-			} finally {
-				JFrame frame = new JFrame();
-				JOptionPane.showMessageDialog(frame, "Verifique qual campo está preenchido errado.");
+					}
+				});
+				thread.start();
+			} catch (VerifyException exc) {
+				JOptionPane.showMessageDialog(new JFrame(), "Verifique o campo preenchido errado.");
+			} catch (ArrayIndexOutOfBoundsException | NullPointerException err) {
+				JOptionPane.showMessageDialog(new JFrame(), "Ocorreu um erro inesperado." + err.getMessage());
 			}
-
-		} catch (ArrayIndexOutOfBoundsException | NullPointerException exc) {
-			exc.printStackTrace();
-		} finally {
-			JFrame frame = new JFrame();
-			JOptionPane.showMessageDialog(frame, "Ocorreu um erro inesperado, favor contatar o desenvolvedor.");
 		}
 	}
 
 	private void verifyCheck() {
-		// Verifica quais CheckBox est�o selecionados e com endere�o validos
+		// Verifica quais CheckBox estão selecionados e com endereço válidos
 		listCheckBoolean.clear();
 		checkTrue = false;
 		for (int i = 0; i < listCheckBox.size(); i++) {
 			if (listCheckBox.get(i).isSelected() == true) {
-				VerifyStringDB.verifyText(listFieldDB.get(i).getText());
 				checkTrue = true;
 				listCheckBoolean.add(true);
 			} else {
 				listCheckBoolean.add(false);
 			}
+		}
+	}
+
+	private void verifyString() {
+		for (int i = 0; i < listCheckBox.size(); i++) {
+			VerifyStringDB.verifyText(listFieldDB.get(i).getText());
 		}
 	}
 
