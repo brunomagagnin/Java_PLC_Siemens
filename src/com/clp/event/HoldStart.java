@@ -98,7 +98,6 @@ public class HoldStart implements ActionListener {
 									throw new NoConnectionException();
 								}
 							}
-
 						} catch (NoConnectionException noCon) {
 							JOptionPane.showMessageDialog(new JFrame(), noCon.getMessage());
 						}
