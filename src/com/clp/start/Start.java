@@ -21,7 +21,6 @@ public class Start {
 					UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
 					FrameStart start = new FrameStart();
 					start.setVisible(true);
-
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
