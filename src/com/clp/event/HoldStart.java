@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import com.clp.comunication.DriverS7;
+import com.clp.exceptions.NoConnectionException;
 import com.clp.exceptions.VerifyException;
 import com.clp.gui.Button;
 import com.clp.gui.CheckBox;
@@ -49,20 +50,22 @@ public class HoldStart implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// Bloco de monitoramento contínuo - Quando CheckBox "Monitoramento Contínuo"
 		// selecionado
-		try {
-			try {
-				if (checkBoxHold.isSelected() && !cycloStartState.getState() && checkTrue) {
-					verifyCheck();
-					timer = new Timer();
-					driver = new DriverS7(fieldIP.getText());
-					checkBoxHold.setEnabled(false);
-					buttonStop.setEnabled(true);
-					cycloStartState.setState(true);
-					buttonTest.setEnabled(false);
 
-					timer.scheduleAtFixedRate(new TimerTask() {
-						@Override
-						public void run() {
+		try {
+			verifyCheck();
+			verifyString();
+			if (checkBoxHold.isSelected() && !cycloStartState.getState() && checkTrue) {
+				timer = new Timer();
+				driver = new DriverS7(fieldIP.getText());
+				checkBoxHold.setEnabled(false);
+				buttonStop.setEnabled(true);
+				cycloStartState.setState(true);
+				buttonTest.setEnabled(false);
+
+				timer.scheduleAtFixedRate(new TimerTask() {
+					@Override
+					public void run() { // esse
+						try {
 							driver.connect();
 							if (driver.isConnected()) {
 								for (int index = 0; index < listCheckBoolean.size(); index++) {
@@ -85,23 +88,27 @@ public class HoldStart implements ActionListener {
 								}
 								driver.disconnect();
 							} else {
-								System.out.println("Sem conexão com CLP."); // Deve lançar uma exception.
+								driver.countTryConnection();
+								if (driver.getTryConnection() == 3) {
+									timer.cancel();
+									buttonTest.setEnabled(true);
+									cycloStartState.setState(false);
+									checkBoxHold.setEnabled(true);
+									buttonStop.setEnabled(false);
+									throw new NoConnectionException();
+								}
 							}
+
+						} catch (NoConnectionException noCon) {
+							JOptionPane.showMessageDialog(new JFrame(), noCon.getMessage());
 						}
-					}, 50, 500);
-				}
-			} catch (VerifyException v) {
-
-			} finally {
-				JFrame frame = new JFrame();
-				JOptionPane.showMessageDialog(frame, "Verifique qual campo está preenchido errado.");
+					} // esse
+				}, 50, 500);
 			}
-
-		} catch (ArrayIndexOutOfBoundsException | NullPointerException exc) {
-			exc.printStackTrace();
-		} finally {
-			JFrame frame = new JFrame();
-			JOptionPane.showMessageDialog(frame, "Ocorreu um erro inesperado, favor contatar o desenvolvedor.");
+		} catch (VerifyException exc) {
+			JOptionPane.showMessageDialog(new JFrame(), exc.getMessage());
+		} catch (ArrayIndexOutOfBoundsException | NullPointerException err) {
+			JOptionPane.showMessageDialog(new JFrame(), "Ocorreu um erro inesperado." + err.getMessage());
 		}
 	}
 
@@ -110,13 +117,20 @@ public class HoldStart implements ActionListener {
 		listCheckBoolean.clear();
 		checkTrue = false;
 		for (int i = 0; i < listCheckBox.size(); i++) {
-
-			VerifyStringDB.verifyText(listFieldDB.get(i).getText());
 			if (listCheckBox.get(i).isSelected() == true) {
 				checkTrue = true;
 				listCheckBoolean.add(true);
 			} else {
 				listCheckBoolean.add(false);
+			}
+		}
+	}
+
+	private void verifyString() {
+		for (int i = 0; i < listCheckBox.size(); i++) {
+			if (listCheckBox.get(i).isSelected() == true) {
+				String str = listFieldDB.get(i).getText();
+				VerifyStringDB.verifyText(str);
 			}
 		}
 	}
