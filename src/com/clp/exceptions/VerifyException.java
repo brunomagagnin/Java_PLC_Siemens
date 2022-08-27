@@ -2,7 +2,7 @@ package com.clp.exceptions;
 
 public class VerifyException extends RuntimeException{
 	
-	public VerifyException(String string) {
-		super(string);
+	public VerifyException() {
+		super("Verifique os campos preenchidos.");
 	}
 }
