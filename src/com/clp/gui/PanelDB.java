@@ -25,7 +25,7 @@ public class PanelDB extends JPanel {
 	
 	public PanelDB() {
 		this.setBounds(23, 10, 268, 213);
-		this.setBorder(BorderFactory.createTitledBorder(raisedbevel, "Endere�o de Memória"));
+		this.setBorder(BorderFactory.createTitledBorder(raisedbevel, "Endereço de Memória"));
 		this.setLayout(null);
 		
 		add(textFieldDB1 = new TextField(44, 51, 116, 32, null, true, false, null));
