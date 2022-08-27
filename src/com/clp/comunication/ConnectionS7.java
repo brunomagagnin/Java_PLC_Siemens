@@ -8,6 +8,7 @@ public class ConnectionS7 {
 	protected final int SLOT = 2;
 	protected final int RACK = 0;
 	protected boolean isConnected = false;
+	protected int tryConnection = 0;
 	protected S7Client client = new S7Client();
 
 	public ConnectionS7(String ip) {
@@ -33,6 +34,14 @@ public class ConnectionS7 {
 
 	public boolean isConnected() {
 		return this.isConnected;
+	}
+	
+	public int getTryConnection() {
+		return this.tryConnection;
+	}
+	
+	public void countTryConnection() {
+		this.tryConnection +=1;
 	}
 
 }
