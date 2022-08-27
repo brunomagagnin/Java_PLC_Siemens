@@ -44,8 +44,8 @@ public final class VerifyStringDB {
 	private static List<Character> CharDigitList = new ArrayList<Character>();
 	private static String strTextSeparate[];
 
-	public static void verifyText(String string) {
-		stringText = string;
+	public static void verifyText(String str) {
+		stringText = str;
 		clearVariables();
 		breakString();
 		verifyArrayLength();
@@ -69,14 +69,13 @@ public final class VerifyStringDB {
 		if (!stringText.isEmpty() && stringText.length() >= 7 && stringText.contains(".")) {
 			strTextSeparate = textoUpper.split("\\.");
 		} else {
-			System.out.println(stringText);
-			throw new VerifyException("Texto não corresponde ao padrão Siemens.");
+			throw new VerifyException();
 		}
 	}
 
 	private static void verifyArrayLength() {
 		if (strTextSeparate.length < 2 || strTextSeparate.length > 3) {
-			throw new VerifyException("Texto não corresponde ao padrão Siemens.");
+			throw new VerifyException();
 		}
 	}
 
@@ -88,7 +87,7 @@ public final class VerifyStringDB {
 				strTextSeparate[0].substring(2).isBlank() ||
 				strTextSeparate[1].substring(3).isBlank()) {
 
-			throw new VerifyException("Texto não corresponde ao padrão Siemens.");
+			throw new VerifyException();
 		}
 	}
 
@@ -138,35 +137,35 @@ public final class VerifyStringDB {
 		// verifica as primeiras letras
 		for (int a = 0; a < templateDB.length; a++) {
 			if (templateDB[a] != firstLetters.get(a)) {
-				throw new VerifyException("Texto não corresponde ao padrão Siemens.");
+				throw new VerifyException();
 			}
 		}
 		// verifica segundas letras
 		for (int a = 0; a < templateDB.length; a++) {
 			if (templateDB[a] != secondLetters.get(a)) {
-				throw new VerifyException("Texto não corresponde ao padrão Siemens.");
+				throw new VerifyException();
 			}
 		}
 
 		//Verifica o tipo de caracter
 		if (lastCharacter == templateType[0] && strTextSeparate.length == 3) { // verifica tipo W ou D // D
 			if (Integer.parseInt(listNumbers.get(2)) > 7 || Integer.parseInt(listNumbers.get(2)) < 0) {
-				throw new VerifyException("Texto não corresponde ao padrão Siemens.");
+				throw new VerifyException();
 			}
 		} else if (lastCharacter == templateType[1] && strTextSeparate.length == 2 || 
 				   lastCharacter == templateType[2] &&strTextSeparate.length == 2) {
 		} else {
-			throw new VerifyException("\"Texto não corresponde ao padrão Siemens.\"");
+			throw new VerifyException();
 		}
 
 		for (int a = 0; a < CharDigitList.size(); a++) {
 			if (!Character.isDigit(CharDigitList.get(a))) {
-				throw new VerifyException("Texto não corresponde ao padrão Siemens.");
+				throw new VerifyException();
 			}
 		}
 		// if (typeX) 
 		if (listNumbers.size() == 3 && listNumbers.get(2).length() != 1) {
-			throw new VerifyException("Texto não corresponde ao padrão Siemens.");
+			throw new VerifyException();
 		}
 	}
 }
