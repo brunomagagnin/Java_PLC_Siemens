@@ -25,6 +25,6 @@ Projeto de monitoramento de PLC Siemens baseado em Java.
 * **Bruno Magagnin Pereira** - *Projeto*
 
 ## 🎁 Expressões de gratidão
-* Agradecimento à Maurício Dal'Pont Pereira pelas dicas de CleanCode;
+* Agradecimento à Maurício Dal'Pont Pereira pelas dicas de CleanCode e Samuel Baldasso pela ajuda;
 
 ---
