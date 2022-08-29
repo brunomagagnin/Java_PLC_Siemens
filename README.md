@@ -9,7 +9,7 @@ Projeto de monitoramento de PLC Siemens baseado em Java.
 - Compatível com CLPs: S7300 S71200 S71500
 
 ### Especificações do projeto
-- Tipo de blocos de memórias monitorados: somente DB. Memória do tipo markers (M), entradas (I), saídas (Q) e timers(T) não estão contemplados;
+- Tipo de blocos de memórias monitorados: somente DB. Memória do tipo M, entradas (I), saídas (Q) e timers(T) não estão contemplados;
 - Tipos de Variáveis: Boolean(X), Word(W) e DoubleWord(D);
 - Quantidade máxima de variáveis: 3;
 - Faz registro em banco de dados: Não;
