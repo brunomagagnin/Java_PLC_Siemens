@@ -2,6 +2,7 @@
 
 Projeto de monitoramento de PLC Siemens baseado em Java.
 
+![alt text](Java_PLC_Siemens/figura.png)
 
 ### 📋 Pré-requisitos e compatibilidade
 - Para que funcione o aplicativo, instale previamente a máquina virtual JAVA (Java JRE) na sua máquina;
